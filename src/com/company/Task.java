@@ -100,7 +100,7 @@ public class Task {
 
         while (true) {
 
-            ferry.acquire();;
+            ferry.acquire();
             System.out.println("Ferry arrives at the island");
 
             //if ferry is empty
