@@ -26,7 +26,31 @@ public class Main {
             }
         });
 
+        Thread mainland = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    service.mainland();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Thread island = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    service.island();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         mainlandbg.start();
+        mainland.start();
+        island.start();
 
     }
 }
