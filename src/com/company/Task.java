@@ -34,20 +34,28 @@ public class Task {
     /*current ID count of cars*/
     int carId = 0;
 
+    Task() {
+        mainland_current.add(carId);
+        carId++;
+        mainland_current.add(carId);
+        carId++;
+        mainland_current.add(carId);
+        carId++;
+        mainland_current.add(carId);
+        carId++;
+
+        island_parking_lot_current.add(carId);
+        carId++;
+        island_parking_lot_current.add(carId);
+        carId++;
+        island_parking_lot_current.add(carId);
+        carId++;
+    }
+
     /*
     * Adds a car to the vector at random intervals
     */
     public void mainlandbg() throws InterruptedException {
-
-        mainland_current.add(carId);
-        carId++;
-        mainland_current.add(carId);
-        carId++;
-        mainland_current.add(carId);
-        carId++;
-        mainland_current.add(carId);
-        carId++;
-
 
         while (true) {
             //sleep for random amount of ms from 400 to 3000
@@ -67,6 +75,7 @@ public class Task {
 
             ferry.acquire();
             System.out.println("Ferry arrives at the mainland.");
+            Thread.sleep(1000);
 
             //if ferry is empty
             if (ferry_current.isEmpty()) {
@@ -74,17 +83,11 @@ public class Task {
                 //move cars that are waiting on the mainland to the ferry until it reaches capacity/will fill island parking lot
                 while (ferry_current.size() <= ferry_max_capacity && !mainland_current.isEmpty() && island_parking_lot_current.size() + ferry_current.size() <= island_parking_lot_max_capacity) {
                     currentCarId = mainland_current.firstElement();
-
-                    /*System.out.println("mainland_current is: ");
-                    for (Integer i : mainland_current) {
-                        System.out.println(i);
-                    }*/
-
-
                     mainland_current.remove(Integer.valueOf(currentCarId));
                     ferry_current.add(currentCarId);
 
-                    System.out.println(currentCarId + " boards the ferry from the mainland.");
+                    System.out.println("carId: " + currentCarId + " boards the ferry from the mainland.");
+                    Thread.sleep(1000);
                 }
 
             } else {
@@ -96,13 +99,11 @@ public class Task {
                 //move cars that are waiting on the mainland to the ferry until it reaches capacity
                 while (ferry_current.size() <= ferry_max_capacity && !mainland_current.isEmpty() && island_parking_lot_current.size() + ferry_current.size() <= island_parking_lot_max_capacity) {
                     currentCarId = mainland_current.firstElement();
-                    /*System.out.println("mainland_current is: ");
-                    for (Integer i : mainland_current) {
-                        System.out.println(i);
-                    }*/
                     mainland_current.remove(Integer.valueOf(currentCarId));
                     ferry_current.add(currentCarId);
-                    System.out.println(currentCarId + " boards the ferry from the mainland.");
+
+                    System.out.println("carId: " + currentCarId + " boards the ferry from the mainland.");
+                    Thread.sleep(1000);
                 }
 
             }
@@ -132,7 +133,8 @@ public class Task {
                     island_parking_lot_current.remove(Integer.valueOf(currentCarId));
                     ferry_current.add(currentCarId);
 
-                    System.out.println(currentCarId + " boards the ferry from the island.");
+                    System.out.println("carId: " + currentCarId + " boards the ferry from the island.");
+                    Thread.sleep(1000);
                 }
 
             } else {
@@ -141,7 +143,8 @@ public class Task {
                 while (ferry_current_it.hasNext()) {
                     currentCarId = ferry_current.remove(ferry_current.size() - 1);
                     island_parking_lot_current.add(currentCarId);
-                    System.out.println(currentCarId + " leaves the ferry and enters the island.");
+                    System.out.println("carId: " + currentCarId + " leaves the ferry and enters the island.");
+                    Thread.sleep(1000);
                 }
 
                 //move cars that are waiting on the island to the ferry until it reaches capacity
@@ -150,7 +153,8 @@ public class Task {
                     island_parking_lot_current.remove(Integer.valueOf(currentCarId));
                     ferry_current.add(currentCarId);
 
-                    System.out.println(currentCarId + " boards the ferry from the island.");
+                    System.out.println("carId: " + currentCarId + " boards the ferry from the island.");
+                    Thread.sleep(1000);
                 }
 
             }
